@@ -9,5 +9,5 @@ from .models import Subscription
 class SubscriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subscription
-        fields = ['user','skin_care_product', 'cosmetic_products', 'fragrance_product', 'tiers']
+        fields = ['user','skin_care_product', 'cosmetic_product', 'fragrance_product', 'tier']
         depth = 1
