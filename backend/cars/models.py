@@ -2,6 +2,7 @@ from django.db import models
 from authentication.models import User
 
 # Create your models here.
+# models.py is a template for the data defining the fields for the tables and their properties
 
 # <<<<<<<<<<<<<<<<< EXAMPLE FOR STARTER CODE USE <<<<<<<<<<<<<<<<<
 

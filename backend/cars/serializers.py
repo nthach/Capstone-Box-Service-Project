@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Car
 
 # <<<<<<<<<<<<<<<<< EXAMPLE FOR STARTER CODE USE <<<<<<<<<<<<<<<<<
-
+# serializer.py file take the models.py and converts it to .json format
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:

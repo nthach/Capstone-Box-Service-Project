@@ -1,11 +1,12 @@
 from django.db import models
 
-from symbol import subscript
+from authentication.models import User
 
 # Create your models here.
+# models.py file is use for setting or formatting of the field of the tables
 
-class Car(models.Model):
-    user = models.ForeignKey(user, on_delete=models.CASCADE)
+class Account_Detail(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     account_detail = models.CharField(max_length=30)
     products = models.CharField(max_length=100)
     subscription = models.IntegerField()
