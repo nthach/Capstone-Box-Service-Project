@@ -7,10 +7,8 @@ from authentication.models import User
 
 class Account_Detail(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    account_detail = models.CharField(max_length=30)
-    products = models.CharField(max_length=100)
-    subscription = models.IntegerField()
-    tiers = models.IntegerField()
+
+    total_amount = models.IntegerField()
 
 
 
