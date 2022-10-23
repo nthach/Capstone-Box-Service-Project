@@ -36,7 +36,7 @@ const TiersPage = () => {
       {tiers &&
         tiers.map((tiers) => (
           <p key={tiers.id}>
-            {tiers.tier_name} {tiers_price} {tiers.id}
+            {tiers.tier_name} {tiers.tier_price} {tiers.id}
           </p>
         ))}
     </div>

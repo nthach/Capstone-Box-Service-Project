@@ -34,9 +34,9 @@ const Account_Detail_Page = () => {
     <div className="container">
       <h1>Account Detail Page for {user.username}!</h1>
       {account_detail &&
-        account_detail.map((Account_Detail) => (
-          <p key={Account_Detail.id}>
-            {Account_Detail.account_detail} {Account_Detail.products} {Account_Detail.subscription}  {Account_Detail.tiers} {Account_Detail.user_id} {Account_Detail.id}
+        account_detail.map((account_detail) => (
+          <p key={account_detail.id}>
+            {account_detail.user.username} {account_detail.total_amount}
           </p>
         ))}
     </div>

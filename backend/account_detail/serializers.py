@@ -7,5 +7,5 @@ from .models import Account_Detail
 class AccountDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account_Detail
-        fields = ['id', 'account_detail', 'products', 'subscription', 'user_id', 'tiers']
+        fields = ['user', 'total_amount']
         depth = 1

@@ -12,10 +12,20 @@ import useCustomForm from "../../hooks/useCustomForm"
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
 
 
+let initialValues = {
+  account_detail: "",
+  products: "",
+  subscription: "",
+  tiers: "",
+  user: "",
+
+
+}
 
 const SubscriptionPage = () => {
   const [user, token] = useAuth();
   const navigate = useNavigate ();
+  const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues);
   const [subscription, setSubscription] = useState([]);
 
   useEffect(() => {
@@ -35,17 +45,26 @@ const SubscriptionPage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Subscription Page for {user.username}!</h1>
-      {subscription &&
-        subscription.map((subscription) => (
-          <p key={subscription.id}>
-            {subscription.skin_care_product} {subscription.cosmetic_product} {subscription.fragrance_product} {subscription.tier} {subscription.user.username}
-          </p>
-        ))}
+      <h1>Add a Subscription for {user.username}!</h1>
+      <form>
+        <label for="skin_care_product">Skin Care Product</label> &nbsp;
+        <input type="checkbox" name="skin_care_product" value="skin_care_product" />
+        <br />
+        <label for="cosmetic_product">Cosmetic Product</label> &nbsp;
+        <input type="checkbox" name="cosmetic_product" value="cosmetic_product" />
+        <br />
+        <label for="fragrance_product">Fragrance Product</label> &nbsp;
+        <input type="checkbox" name="fragrance_product" value="fragrance_product" />
+        <br />
+        <label for="tier">Tier</label> &nbsp;
+        <input type="textbox" name="tier" value="" />
+        <br />
+        <input type="submit" name="submit" value="Submit" />
+
+      </form>
+
     </div>
   );
 };
 
 export default SubscriptionPage;
-
-

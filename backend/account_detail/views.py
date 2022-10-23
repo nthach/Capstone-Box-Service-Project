@@ -11,15 +11,15 @@ from .serializers import AccountDetailSerializer
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def get_all_accounts(request):
-    Account_Detail = AccountDetailSerializer.objects.all()
-    serializer = AccountDetailSerializer(Account_Detail, many=True)
+def get_all_accountdetails(request):
+    ad = Account_Detail.objects.all()
+    serializer = AccountDetailSerializer(ad, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def user_accounts(request):
+def user_accountdetails(request):
     print(
         'User ', f"{request.user.id} {request.user.email} {request.user.username}")
     if request.method == 'POST':
@@ -29,7 +29,7 @@ def user_accounts(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        cars = Account_Detail.objects.filter(user_id=request.user.id)
-        serializer = AccountDetailSerializer(cars, many=True)
+        ad = Account_Detail.objects.filter(user_id=request.user.id)
+        serializer = AccountDetailSerializer(ad, many=True)
         return Response(serializer.data)
 

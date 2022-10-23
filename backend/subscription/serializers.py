@@ -4,6 +4,7 @@ from rest_framework import serializers
 from .models import Subscription
 
 # <<<<<<<<<<<<<<<<< EXAMPLE FOR STARTER CODE USE <<<<<<<<<<<<<<<<<
+# serializer.py file take the models.py and converts it to .json format
 
 
 class SubscriptionSerializer(serializers.ModelSerializer):

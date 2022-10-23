@@ -21,7 +21,7 @@ def get_all_subscription(request):
 @permission_classes([IsAuthenticated])
 def user_subscription(request):
     print(
-        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
+        'Subscription ', f"{request.skin_care_product} {request.cosmetic_product} {request.fragrance_product} {request.tier} {request.user}")
     if request.method == 'POST':
         serializer = SubscriptionSerializer(data=request.data)
         if serializer.is_valid():
