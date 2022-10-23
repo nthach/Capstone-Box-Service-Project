@@ -11,36 +11,36 @@ import useCustomForm from "../../hooks/useCustomForm"
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
 
 
-const ProductPage = () => {
+const Account_Detail_Page = () => {
   const [user, token] = useAuth();
-  const [products, setProduct] = useState([]);
+  const [account_detail, setAccount_Detail] = useState([]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchAccount_Detail = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/products/", {
+        let response = await axios.get("http://127.0.0.1:8000/api/account_detail/", {
           headers: {
             Authorization: "Bearer " + token,
           },
         });
-        setProduct(response.data);
+        setAccount_Detail(response.data);
       } catch (error) {
         console.log(error.response.data);
       }
     };
-    fetchProduct();
+    fetchAccount_Detail();
   }, [token]);
   return (
     <div className="container">
-      <h1>Product Page for {user.username}!</h1>
-      {products &&
-        products.map((product) => (
-          <p key={product.id}>
-            {product.product_name} {product.description} {product.id}
+      <h1>Account Detail Page for {user.username}!</h1>
+      {account_detail &&
+        account_detail.map((Account_Detail) => (
+          <p key={Account_Detail.id}>
+            {Account_Detail.account_detail} {Account_Detail.products} {Account_Detail.subscription}  {Account_Detail.tiers} {Account_Detail.user_id} {Account_Detail.id}
           </p>
         ))}
     </div>
   );
 };
 
-export default ProductPage;
+export default Account_Detail_Page;

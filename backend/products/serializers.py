@@ -9,5 +9,7 @@ from .models import Product
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ['user','skin_care_product', 'cosmetic_product', 'fragrance_product', 'tier']
+        fields = ['product_name', 'description']
         depth = 1
+
+

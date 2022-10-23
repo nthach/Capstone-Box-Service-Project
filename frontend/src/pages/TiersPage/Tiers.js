@@ -11,36 +11,36 @@ import useCustomForm from "../../hooks/useCustomForm"
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
 
 
-const ProductPage = () => {
+const TiersPage = () => {
   const [user, token] = useAuth();
-  const [products, setProduct] = useState([]);
+  const [tiers, setTiers] = useState([]);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchTiers = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/products/", {
+        let response = await axios.get("http://127.0.0.1:8000/api/tiers/", {
           headers: {
             Authorization: "Bearer " + token,
           },
         });
-        setProduct(response.data);
+        setTiers(response.data);
       } catch (error) {
         console.log(error.response.data);
       }
     };
-    fetchProduct();
+    fetchTiers();
   }, [token]);
   return (
     <div className="container">
-      <h1>Product Page for {user.username}!</h1>
-      {products &&
-        products.map((product) => (
-          <p key={product.id}>
-            {product.product_name} {product.description} {product.id}
+      <h1>Tiers Page for {user.username}!</h1>
+      {tiers &&
+        tiers.map((tiers) => (
+          <p key={tiers.id}>
+            {tiers.tier_name} {tiers_price} {tiers.id}
           </p>
         ))}
     </div>
   );
 };
 
-export default ProductPage;
+export default TiersPage;

@@ -31,7 +31,7 @@ const SubscriptionPage = () => {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/subscription/", formData, {
+        let response = await axios.get("http://127.0.0.1:8000/api/subscription/", {
           headers: {
             Authorization: "Bearer " + token,
           },
