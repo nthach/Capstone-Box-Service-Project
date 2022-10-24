@@ -39,7 +39,7 @@ function App() {
         <Route path="/products" element={<ProductPage />} />
         <Route path="/accountdetail" element={<AccountDetailPage />} />
         <Route path="/tiers" element={<TiersPage />} />
-        <Route path="/addsubscription" element={<AddSubscriptionPage />} />
+        <Route path="/addsubscription" element={<PrivateRoute><AddSubscriptionPage /></PrivateRoute>} />
       </Routes>
       <Footer />
     </div>

@@ -7,5 +7,5 @@ from account_detail import views
 
 urlpatterns = [
     path('', views.get_all_accountdetails),
-    path('accountdetail_details/', views.user_accountdetails),
+    path('addAccountdetail/', views.user_accountdetails),
 ]

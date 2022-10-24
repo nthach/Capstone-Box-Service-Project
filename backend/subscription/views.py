@@ -20,12 +20,14 @@ def get_all_subscription(request):
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def user_subscription(request):
+    
     print(
-        'Subscription ', f"{request.skin_care_product} {request.cosmetic_product} {request.fragrance_product} {request.tier} {request.user}")
+        'User ', f"{request.user.id} {request.user.email} {request.user.username}")
     if request.method == 'POST':
         serializer = SubscriptionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save(user=request.user)
+            #serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':

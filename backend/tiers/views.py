@@ -21,7 +21,7 @@ def get_all_tiers(request):
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def user_tiers(request):
+def tier_requests(request, tier_id=0):
     print(
         'User ', f"{request.user.id} {request.user.email} {request.user.username}")
     if request.method == 'POST':
@@ -31,6 +31,9 @@ def user_tiers(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == 'GET':
-        tier = Tiers.objects.filter(user_id=request.user.id)
+        if request.GET['tier_id']==0:
+            tier = Tiers.objects.all()
+        else: 
+            tier = Tiers.objects.filter(id=request.GET['tier_id'])  
         serializer = TiersSerializer(tier, many=True)
         return Response(serializer.data)

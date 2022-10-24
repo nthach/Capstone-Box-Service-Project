@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import useCustomForm from "../../hooks/useCustomForm"
+import { Link } from "react-router-dom";
 
 
 
@@ -36,6 +37,7 @@ const SubscriptionPage = () => {
   return (
     <div className="container">
       <h1>Subscription Page for {user.username}!</h1>
+      <Link to="/addsubscription">Add Subscription</Link>
       {subscription &&
         subscription.map((subscription) => (
           <p key={subscription.id}>

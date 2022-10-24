@@ -11,5 +11,5 @@ from tiers import views
 
 urlpatterns = [
     path('', views.get_all_tiers),
-    path('tiers/', views.user_tiers),
+    path('tiers/', views.tier_requests),
 ]

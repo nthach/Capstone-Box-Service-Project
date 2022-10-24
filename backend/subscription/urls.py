@@ -13,4 +13,5 @@ from subscription import views
 urlpatterns = [
     path('', views.get_all_subscription),
     path('subscription_details/', views.user_subscription),
+
 ]

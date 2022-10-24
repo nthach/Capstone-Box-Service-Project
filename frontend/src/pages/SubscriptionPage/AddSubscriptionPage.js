@@ -13,53 +13,73 @@ import useCustomForm from "../../hooks/useCustomForm"
 
 
 let initialValues = {
-  account_detail: "",
-  products: "",
-  subscription: "",
-  tiers: "",
-  user: "",
-
-
+  skin_care_product: "no",
+  cosmetic_product: "no",
+  fragrance_product:"no",
+  tier:1,
+  user: 0
 }
 
-const SubscriptionPage = () => {
+const AddSubscriptionPage = () => {
   const [user, token] = useAuth();
   const navigate = useNavigate ();
-  const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues);
-  const [subscription, setSubscription] = useState([]);
+  const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues, postNewSubcription)
+  const [tiers, setTiers] = useState([]);
 
-  useEffect(() => {
-    const fetchSubscription = async () => {
+  
+     async function postNewSubcription() {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/subscription/", {
+        if (formData.tier>0 && (formData.skin_care_product != 'no'|| formData.cosmetic_product != 'no' || formData.fragrance_product != 'no')) {
+
+        
+        let response = await axios.post("http://127.0.0.1:8000/api/subscription/subscription_details/", formData, {
           headers: {
             Authorization: "Bearer " + token,
-          },
-        });
-        setSubscription(response.data);
-      } catch (error) {
-        console.log(error.response.data);
+          }
+        })
+
+        let response_tierPrice = await axios.get("http://127.0.0.1:8000/api/tiers/tiers/?tier_id=" + formData.tier, {
+          headers: {
+            Authorization: "Bearer " + token,
+          }
+        })
+        setTiers(response_tierPrice.data);
+      
       }
-    };
-    fetchSubscription();
-  }, [token]);
+        //navigate("/Subscription")
+      
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
   return (
     <div className="container">
       <h1>Add a Subscription for {user.username}!</h1>
-      <form>
-        <label for="skin_care_product">Skin Care Product</label> &nbsp;
-        <input type="checkbox" name="skin_care_product" value="skin_care_product" />
-        <br />
-        <label for="cosmetic_product">Cosmetic Product</label> &nbsp;
-        <input type="checkbox" name="cosmetic_product" value="cosmetic_product" />
-        <br />
-        <label for="fragrance_product">Fragrance Product</label> &nbsp;
-        <input type="checkbox" name="fragrance_product" value="fragrance_product" />
-        <br />
-        <label for="tier">Tier</label> &nbsp;
-        <input type="textbox" name="tier" value="" />
-        <br />
-        <input type="submit" name="submit" value="Submit" />
+      {tiers &&
+        tiers.map((tiers) => (
+          <p key={tiers.id}>
+            {tiers.tier_name} {tiers.tier_price} {tiers.id}
+          </p>
+        ))}
+      <form className="form" onSubmit={handleSubmit}>
+        <label>
+          Skin Care Product
+        <input type="textbox" name="skin_care_product" value={formData.skin_care_product} onChange={handleInputChange}/>
+        </label>
+        
+        <label>Cosmetic Product
+          <input type="textbox" name="cosmetic_product" value={formData.cosmetic_product} onChange={handleInputChange}/>
+          </label>
+        
+        <label>Fragrance Product
+        <input type="textbox" name="fragrance_product" value={formData.fragrance_product} onChange={handleInputChange}/>
+        </label>
+      
+        <label>Tier
+        <input type="textbox" name="tier" value={formData.tier} onChange={handleInputChange}/>
+        </label>
+
+        <input type="submit" name="submit" value="Submit" onClick={handleSubmit}/>
 
       </form>
 
@@ -67,4 +87,4 @@ const SubscriptionPage = () => {
   );
 };
 
-export default SubscriptionPage;
+export default AddSubscriptionPage;
