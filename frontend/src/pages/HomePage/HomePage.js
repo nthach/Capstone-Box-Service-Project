@@ -15,7 +15,7 @@ const HomePage = () => {
   useEffect(() => {
     const fetchCars = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/cars/", {
+        let response = await axios.get("http://127.0.0.1:8000/api/HomePage", {
           headers: {
             Authorization: "Bearer " + token,
           },
@@ -29,7 +29,7 @@ const HomePage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Home Page for {user.username}!</h1>
+      <h1>Welcome {user.username}!</h1>
       <Link to="/Subscription">Subscriptions</Link> <br/>
       <Link to="/products">Products</Link><br/>
       <Link to="/tiers">Tiers</Link>

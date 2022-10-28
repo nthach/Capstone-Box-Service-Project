@@ -41,7 +41,7 @@ const SubscriptionPage = () => {
       {subscription &&
         subscription.map((subscription) => (
           <p key={subscription.id}>
-            {subscription.skin_care_product} {subscription.cosmetic_product} {subscription.fragrance_product} {subscription.tier} {subscription.user.username}
+            {subscription.skin_care_product} {subscription.cosmetic_product} {subscription.fragrance_product} {subscription.tier}
           </p>
         ))}
     </div>

@@ -39,11 +39,12 @@ const LoginPage = () => {
             onChange={handleInputChange}
           />
         </label>
+        
         {isServerError ? (
           <p className="error">Login failed, incorrect credentials!</p>
         ) : null}
         <Link to="/register">Click to register!</Link>
-        <button>Login!</button>
+        <button>Login</button>
       </form>
     </div>
   );
