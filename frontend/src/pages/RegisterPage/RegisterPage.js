@@ -17,13 +17,16 @@ const RegisterPage = () => {
   const { registerUser } = useContext(AuthContext);
   const navigate = useNavigate ();
   const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues,postNewUser);
+
   
     
        async function postNewUser() {
+
+
+
+
         try {
-          let response = await axios.post("http://127.0.0.1:8000/api/auth/register/", formData, {
-            
-          })
+          let response = await axios.post("http://127.0.0.1:8000/api/auth/register/", formData, {})
 
           navigate("/login")
         } catch (error) {

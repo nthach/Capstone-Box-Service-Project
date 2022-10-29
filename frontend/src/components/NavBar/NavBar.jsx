@@ -29,12 +29,14 @@ const Navbar = () => {
       </ul>
 
       <div className ="navlinks">
-      <Link to="/home">Home</Link> <br/>
+        <Link to="/home">Home</Link> <br/>
+        <Link to="/home">About</Link><br/>
         <Link to="/Subscription">Subscriptions</Link> <br/>
         <Link to="/products">Products</Link><br/>
         <Link to="/tiers">Tiers</Link><br/>
-        <Link to="/home">About</Link><br/>
-        <Link to="/home">Contact</Link>
+        <Link to="/home">Contact</Link><br/>
+        <Link to="/home">Your Account Detail</Link><br/>
+        <Link to="/home">Admin</Link><br/>
       </div>
 
       <div className="search-container">
