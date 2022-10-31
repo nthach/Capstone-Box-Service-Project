@@ -32,7 +32,7 @@ const AdminReportPage = () => {
         setSubscription(response.data);
 
   //user count -------------------------------------------------------------------------------------
-  let response_user = await axios.get("http://127.0.0.1:8000/api/user" , {
+  let response_user = await axios.get("http://127.0.0.1:8000/api/user/" , {
     headers: {
       Authorization: "Bearer " + token,
     },
