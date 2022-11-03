@@ -11,24 +11,37 @@ import useCustomForm from "../../hooks/useCustomForm"
   // The "token" value is the JWT token that you will send in the header of any request requiring authentication
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
 
+let body={
+  user_id:0,
+  total_amount:0.00
+  }
 
 let initialValues = {
   skin_care_product: "no",
   cosmetic_product: "no",
   fragrance_product:"no",
   tier:1,
-  user: 0
+  user: 0,
+  total_amount: 0.00
 }
 
 const AddSubscriptionPage = () => {
   const [user, token] = useAuth();
+  initialValues.user=user.userid;
   const navigate = useNavigate ();
   const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues, postNewSubcription)
   const [tiers, setTiers] = useState([]);
-
   
      async function postNewSubcription() {
       try {
+        console.log("Cosmetics: " + FormData.cosmetic_product);
+        
+        console.log("Skin: " + FormData.skin_care_product);
+        
+        console.log("Fragrance: " + FormData.fragrance_product);
+        
+        console.log("Tier: " + FormData.tier);
+
         if (formData.tier>0 && (formData.skin_care_product != 'no'|| formData.cosmetic_product != 'no' || formData.fragrance_product != 'no')) {
 
         
@@ -43,6 +56,20 @@ const AddSubscriptionPage = () => {
             Authorization: "Bearer " + token,
           }
         })
+
+        formData.total_amount=response_tierPrice.data[0].tier_price;
+        let response_postAccountDetail = await axios.post("http://127.0.0.1:8000/api/account_detail/addAccountdetail/", formData,{
+          headers: {
+            Authorization: "Bearer " + token,
+            
+          }
+          
+        }
+        
+        )
+
+
+
         setTiers(response_tierPrice.data);
       
       }
@@ -55,28 +82,24 @@ const AddSubscriptionPage = () => {
   return (
     <div className="container">
       <h1>Add a Subscription for {user.username}!</h1>
-      {tiers &&
-        tiers.map((tiers) => (
-          <p key={tiers.id}>
-            {tiers.tier_name} {tiers.tier_price} {tiers.id}
-          </p>
-        ))}
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Skin Care Product
-        <input type="textbox" name="skin_care_product" value={formData.skin_care_product} onChange={handleInputChange}/>
+        <input type="checkbox" name="skin_care_product" value={formData.skin_care_product="Yes"} onChange={handleInputChange}/>
         </label>
         
         <label>Cosmetic Product
-          <input type="textbox" name="cosmetic_product" value={formData.cosmetic_product} onChange={handleInputChange}/>
+          <input type="checkbox" name="cosmetic_product" value={formData.cosmetic_product="Yes"} onChange={handleInputChange}/>
           </label>
         
         <label>Fragrance Product
-        <input type="textbox" name="fragrance_product" value={formData.fragrance_product} onChange={handleInputChange}/>
+        <input type="checkbox" name="fragrance_product" value={formData.fragrance_product="Yes"} onChange={handleInputChange}/>
         </label>
       
         <label>Tier
-        <input type="textbox" name="tier" value={formData.tier} onChange={handleInputChange}/>
+        <input type="radio" name="tier" value={formData.tier="1"} onChange={handleInputChange}/>24.99
+        <input type="radio" name="tier" value={formData.tier="2"} onChange={handleInputChange}/>54.99
+        <input type="radio" name="tier" value={formData.tier="3"} onChange={handleInputChange}/>84.99
         </label>
 
         <input type="submit" name="submit" value="Submit" onClick={handleSubmit}/>

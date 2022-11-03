@@ -1,6 +1,8 @@
 // General Imports
+//import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+//import { Chart} from "react-google-charts";
 
 // Pages Imports
 import HomePage from "./pages/HomePage/HomePage";

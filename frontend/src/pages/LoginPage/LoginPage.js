@@ -4,6 +4,7 @@ import useCustomForm from "../../hooks/useCustomForm";
 import { Link } from "react-router-dom";
 import "./LoginPage.css";
 
+
 const LoginPage = () => {
   const { loginUser, isServerError } = useContext(AuthContext);
   const defaultValues = { username: "", password: "" };
@@ -12,11 +13,13 @@ const LoginPage = () => {
     loginUser
   );
 
+  
   useEffect(() => {
     if (isServerError) {
       reset();
     }
   }, [isServerError]);
+  
 
   return (
     <div className="container">
@@ -49,5 +52,7 @@ const LoginPage = () => {
     </div>
   );
 };
+
+
 
 export default LoginPage;

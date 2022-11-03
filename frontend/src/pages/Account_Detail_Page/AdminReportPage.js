@@ -5,6 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
+//import { Chart} from "react-google-charts";
 
 
 
@@ -20,6 +21,7 @@ const AdminReportPage = () => {
   const [subscription, setSubscription] = useState([]);
   const [account_detail, setAccountDetail] = useState([]);
   const [authentication, setUser] = useState([]);
+  const [mostPopular, setAdminReportPage] = useState([]);
 
   useEffect(() => {
     const fetchSubscription = async () => {
@@ -29,7 +31,10 @@ const AdminReportPage = () => {
             Authorization: "Bearer " + token,
           },
         });
-        setSubscription(response.data);
+        setSubscription(response.fetchSubscription);
+
+        //console.log(fetchSubscription)
+        //setAdminReportPage([["makeup", "fragrance", "skincare"],...fetchSubscription])
 
   //user count -------------------------------------------------------------------------------------
   let response_user = await axios.get("http://127.0.0.1:8000/api/user/" , {
@@ -39,8 +44,11 @@ const AdminReportPage = () => {
   })
         
   let account=0;
+  console.log(response_user.data)
   for(let i = 0; i < response_user.data.length; i++) {
-    if(response_user.data[i].is_superuser=0){account++}
+    if(response_user.data[i].is_superuser==false){account++}
+    console.log(response_user.data[i].is_superuser)
+    //account++;
 
   }
 
@@ -73,6 +81,7 @@ const AdminReportPage = () => {
     <div className="container">
       <h1>Admin Report</h1>
       <Link to="/addsubscription">Add Subscription</Link>
+      <br/><br/>
       {/* {subscription &&
         subscription.map((subscription) => (
           <p key={subscription.id}>
@@ -80,11 +89,21 @@ const AdminReportPage = () => {
           </p>
         ))} */}
 
-{account_detail}
-{authentication}
-
+Total Monthly Subscriptions: ${account_detail}<br/><br/>
+Total Count of Active Accounts: {authentication}
+        {/* <div>
+          Chart
+        </div>
+        <Chart ChartType="ColumnChart" width="75%" height="400px" data={mostPopular}/>
+         */}
     </div>
+    
+    
+
   );
+
+  
+  
 };
 
 export default AdminReportPage;
