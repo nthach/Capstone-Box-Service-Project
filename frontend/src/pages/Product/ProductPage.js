@@ -14,8 +14,11 @@ import useCustomForm from "../../hooks/useCustomForm"
 const ProductPage = () => {
   const [user, token] = useAuth();
   const [products, setProduct] = useState([]);
+  const navigate = useNavigate ();
 
   useEffect(() => {
+
+      
     const fetchProduct = async () => {
       try {
         let response = await axios.get("http://127.0.0.1:8000/api/products/", {
@@ -32,7 +35,7 @@ const ProductPage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Product Page for {user.username}!</h1>
+      <h1>Product Page!</h1>
       {products &&
         products.map((product) => (
           <p key={product.id}>

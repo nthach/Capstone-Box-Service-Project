@@ -20,6 +20,10 @@ const SubscriptionPage = () => {
   const [subscription, setSubscription] = useState([]);
 
   useEffect(() => {
+    if(user==null) {
+      navigate("/login");
+
+    }
     const fetchSubscription = async () => {
       try {
         let response = await axios.get("http://127.0.0.1:8000/api/subscription/", {
@@ -36,7 +40,7 @@ const SubscriptionPage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Subscription Page for {user.username}!</h1>
+      <h1>Subscription Page for {user==null? "": user.username}!</h1>
       <Link to="/addsubscription">Add Subscription</Link>
       
       {subscription &&

@@ -14,8 +14,13 @@ import useCustomForm from "../../hooks/useCustomForm"
 const Account_Detail_Page = () => {
   const [user, token] = useAuth();
   const [account_detail, setAccount_Detail] = useState([]);
+  const navigate = useNavigate ();
 
   useEffect(() => {
+    if(user==null) {
+      navigate("/login");
+
+    }
     const fetchAccount_Detail = async () => {
       try {
         let response = await axios.get("http://127.0.0.1:8000/api/account_detail/", {
@@ -32,7 +37,7 @@ const Account_Detail_Page = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Account Detail Page for {user.username}!</h1>
+      <h1>Account Detail Page for {user==null? "": user.username}!</h1>
       {account_detail &&
         account_detail.map((account_detail) => (
           <p key={account_detail.id}>

@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -11,16 +11,39 @@ const HomePage = () => {
   //TODO: Add an AddCars Page to add a car for a logged in user's garage
   const [user, token] = useAuth();
   const [cars, setCars] = useState([]);
+  console.log(user);
+  const navigate = useNavigate ();
+  
 
   useEffect(() => {
+    if(user==null) {
+      navigate("/login");
+  
+    }
+
+ 
     const fetchCars = async () => {
       try {
-        let response = await axios.get("http://127.0.0.1:8000/api/HomePage", {
-          headers: {
-            Authorization: "Bearer " + token,
-          },
+        //user count -------------------------------------------------------------------------------------
+        let response_user = await axios.get("http://127.0.0.1:8000/api/user/" , {
+        headers: {
+        Authorization: "Bearer " + token,
+      },
         });
-        setCars(response.data);
+        
+  for(let i = 0; i < response_user.data.length; i++) {
+    if(response_user.data[i].is_superuser==true && response_user.data[i].user_id==user.user_id){
+      navigate("/adminreport/");
+    }
+  }
+  //------------------------------------------------------------------------------------------------
+        
+        // let response = await axios.get("http://127.0.0.1:8000/api/HomePage", {
+        //   headers: {
+        //     Authorization: "Bearer " + token,
+        //   },
+        // });
+        //setCars(response.data);
       } catch (error) {
         console.log(error.response.data);
       }
@@ -29,17 +52,10 @@ const HomePage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Welcome {user.username}!</h1>
+      <h1>Welcome { user==null? "": user.username}!</h1>
       <Link to="/Subscription">Subscriptions</Link> <br/>
       <Link to="/products">Products</Link><br/>
       <Link to="/tiers">Tiers</Link>
-      
-      {cars &&
-        cars.map((car) => (
-          <p key={car.id}>
-            {car.year} {car.model} {car.make}
-          </p>
-        ))}
     </div>
   );
 };

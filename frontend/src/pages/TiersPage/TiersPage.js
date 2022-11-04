@@ -32,7 +32,7 @@ const TiersPage = () => {
   }, [token]);
   return (
     <div className="container">
-      <h1>Tiers Page for {user.username}!</h1>
+      <h1>Tiers Page!</h1>
       {tiers &&
         tiers.map((tiers) => (
           <p key={tiers.id}>
