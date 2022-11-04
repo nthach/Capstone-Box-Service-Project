@@ -5,7 +5,7 @@ import useAuth from "../../hooks/useAuth";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import AuthContext from "../../context/AuthContext";
-//import { Chart} from "react-google-charts";
+import { Chart} from "react-google-charts";
 
 
 
@@ -21,6 +21,12 @@ const AdminReportPage = () => {
   const [subscription, setSubscription] = useState([]);
   const [account_detail, setAccountDetail] = useState([]);
   const [authentication, setUser] = useState([]);
+  const [subscriptionCount, setSubcriptionCount] = useState([]);
+  const [skinCare, setSkinCare] = useState([]);
+  const [cosmetics, setCosmetics] = useState([]);
+  const [fragrance, setfragrance] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [chartTitle, setChartTitle] = useState([]);
   const [mostPopular, setAdminReportPage] = useState([]);
 
   useEffect(() => {
@@ -31,7 +37,25 @@ const AdminReportPage = () => {
             Authorization: "Bearer " + token,
           },
         });
-        setSubscription(response.fetchSubscription);
+
+        let subCount=0;
+        let skinCareCount=0;
+        let cosmeticsCount=0;
+        let fragranceCount=0;
+      
+        console.log(response.data)
+
+      for(let i = 0; i < response.data.length; i++) {
+        subCount++;
+        if(response.data[i].skin_care_product=="yes"){skinCareCount++}
+        if(response.data[i].cosmetic_product=="yes"){cosmeticsCount++}
+        if(response.data[i].fragrance_product=="yes"){fragranceCount++}
+    
+      }
+      setSubcriptionCount(subCount)
+      setSkinCare(skinCareCount)
+      setCosmetics(cosmeticsCount)
+      setfragrance(fragranceCount)
 
         //console.log(fetchSubscription)
         //setAdminReportPage([["makeup", "fragrance", "skincare"],...fetchSubscription])
@@ -55,6 +79,25 @@ const AdminReportPage = () => {
   setUser(account);
   //------------------------------------------------------------------------------------------------
 
+  //pie chart---------------------------------------------------------------------------------------
+  let data = [
+    ["Subscription Type", "Count"],
+    ["Skin Care", skinCareCount],
+    ["Cosmetics", cosmeticsCount],
+    ["Fragrance", fragranceCount],
+  ];
+
+  setChartData(data)
+
+  let options = {
+    title: "Anlytic Chart",
+  };
+
+  setChartTitle(options)
+  
+  //------------------------------------------------------------------------------------------------
+
+
          //total_cost -------------------------------------------------------------------------------------
         let response_accountDetail = await axios.get("http://127.0.0.1:8000/api/account_detail/" , {
           headers: {
@@ -70,6 +113,7 @@ const AdminReportPage = () => {
         setAccountDetail(cost);
         //------------------------------------------------------------------------------------------------
 
+        setSubscription(response.fetchSubscription);
 
       } catch (error) {
         console.log(error.response.data);
@@ -80,7 +124,7 @@ const AdminReportPage = () => {
   return (
     <div className="container">
       <h1>Admin Report</h1>
-      <Link to="/addsubscription">Add Subscription</Link>
+     
       <br/><br/>
       {/* {subscription &&
         subscription.map((subscription) => (
@@ -90,7 +134,19 @@ const AdminReportPage = () => {
         ))} */}
 
 Total Monthly Subscriptions: ${account_detail}<br/><br/>
-Total Count of Active Accounts: {authentication}
+Total Count of Active Accounts: {authentication}<br/><br/>
+<Chart
+      chartType="PieChart"
+      data={chartData}
+      options={chartTitle}
+      width={"100%"}
+      height={"400px"}
+    />
+
+Total Subscription Count: {subscriptionCount}<br/>
+Total skinCare Count: {skinCare}<br/>
+Total cosmetics Count: {cosmetics}<br/>
+Total fragrance Count: {fragrance}
         {/* <div>
           Chart
         </div>

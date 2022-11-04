@@ -30,17 +30,28 @@ const AddSubscriptionPage = () => {
   initialValues.user=user.userid;
   const navigate = useNavigate ();
   const [formData, handleInputChange, handleSubmit] = useCustomForm(initialValues, postNewSubcription)
+  let [radioOption, handleOptionChange] = useState(0)
+  let [checkboxSkin, handleSkinCareChange] = useState("no");
+  let [checkboxCosmetics, handleCosmeticsChange] = useState("no");
+  let [checkboxFragrance, handleFragranceChange] = useState("no");
   const [tiers, setTiers] = useState([]);
-  
+    
+
      async function postNewSubcription() {
       try {
-        console.log("Cosmetics: " + FormData.cosmetic_product);
+
+        formData.tier = radioOption;
+        formData.skin_care_product = checkboxSkin;
+        formData.cosmetic_product = checkboxCosmetics;
+        formData.fragrance_product = checkboxFragrance;
+
+        console.log("Cosmetics: " + formData.cosmetic_product);
         
-        console.log("Skin: " + FormData.skin_care_product);
+        console.log("Skin: " + formData.skin_care_product);
         
-        console.log("Fragrance: " + FormData.fragrance_product);
+        console.log("Fragrance: " + formData.fragrance_product);
         
-        console.log("Tier: " + FormData.tier);
+        console.log("Tier: " + formData.tier);
 
         if (formData.tier>0 && (formData.skin_care_product != 'no'|| formData.cosmetic_product != 'no' || formData.fragrance_product != 'no')) {
 
@@ -73,7 +84,7 @@ const AddSubscriptionPage = () => {
         setTiers(response_tierPrice.data);
       
       }
-        //navigate("/Subscription")
+        navigate("/NewSubscription?Cosmetics=" + formData.cosmetic_product +"&SkinCare=" + formData.skin_care_product + "&Fragrance=" + formData.fragrance_product + "&Tier=" + formData.tier)
       
       } catch (error) {
         console.log(error.message);
@@ -85,21 +96,21 @@ const AddSubscriptionPage = () => {
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Skin Care Product
-        <input type="checkbox" name="skin_care_product" value={formData.skin_care_product="Yes"} onChange={handleInputChange}/>
+        <input type="checkbox" name="skin_care_product" value={formData.skin_care_product} onClick={()=>handleSkinCareChange(checkboxSkin= checkboxSkin=="no"? "yes": "no")}/>
         </label>
         
         <label>Cosmetic Product
-          <input type="checkbox" name="cosmetic_product" value={formData.cosmetic_product="Yes"} onChange={handleInputChange}/>
+          <input type="checkbox" name="cosmetic_product" value={formData.cosmetic_product} onClick={()=>handleCosmeticsChange(checkboxCosmetics= checkboxCosmetics=="no"? "yes": "no")}/>
           </label>
         
         <label>Fragrance Product
-        <input type="checkbox" name="fragrance_product" value={formData.fragrance_product="Yes"} onChange={handleInputChange}/>
+        <input type="checkbox" name="fragrance_product" value={formData.fragrance_product} onClick={()=>handleFragranceChange(checkboxFragrance= checkboxFragrance=="no"? "yes": "no")}/>
         </label>
       
         <label>Tier
-        <input type="radio" name="tier" value={formData.tier="1"} onChange={handleInputChange}/>24.99
-        <input type="radio" name="tier" value={formData.tier="2"} onChange={handleInputChange}/>54.99
-        <input type="radio" name="tier" value={formData.tier="3"} onChange={handleInputChange}/>84.99
+        <input type="radio" name="tier" value="1" onClick={() => handleOptionChange(radioOption = 1)}/>24.99
+        <input type="radio" name="tier" value="2"  onClick={() => handleOptionChange(radioOption = 2)}/>54.99
+        <input type="radio" name="tier" value="3"  onClick={() => handleOptionChange(radioOption = 3)}/>84.99
         </label>
 
         <input type="submit" name="submit" value="Submit" onClick={handleSubmit}/>

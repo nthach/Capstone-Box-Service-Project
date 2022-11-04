@@ -14,6 +14,7 @@ import AccountDetailPage from "./pages/Account_Detail_Page/AccountDetailPage";
 import TiersPage from "./pages/TiersPage/TiersPage";
 import AddSubscriptionPage from "./pages/SubscriptionPage/AddSubscriptionPage";
 import AdminReportPage from "./pages/Account_Detail_Page/AdminReportPage";
+import NewSubscriptionPage from "./pages/SubscriptionPage/NewSubscriptionPage";
 import { Link } from "react-router-dom";
 
 // Component Imports
@@ -44,6 +45,7 @@ function App() {
         <Route path="/accountdetail" element={<AccountDetailPage />} />
         <Route path="/tiers" element={<TiersPage />} />
         <Route path="/addsubscription" element={<PrivateRoute><AddSubscriptionPage /></PrivateRoute>} />
+        <Route path="/newsubscription" element={<PrivateRoute><NewSubscriptionPage /></PrivateRoute>} />
         <Route path="/adminreport" element={<AdminReportPage />}/>
       </Routes>
       <Footer />

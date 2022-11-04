@@ -37,7 +37,7 @@ const SubscriptionPage = () => {
   return (
     <div className="container">
       <h1>Subscription Page for {user.username}!</h1>
-      
+      <Link to="/addsubscription">Add Subscription</Link>
       
       {subscription &&
         subscription.map((subscription) => (
