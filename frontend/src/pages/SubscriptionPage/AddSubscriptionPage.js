@@ -108,9 +108,9 @@ const AddSubscriptionPage = () => {
         </label>
       
         <label>Tier
-        <input type="radio" name="tier" value="1" onClick={() => handleOptionChange(radioOption = 1)}/>24.99
-        <input type="radio" name="tier" value="2"  onClick={() => handleOptionChange(radioOption = 2)}/>54.99
-        <input type="radio" name="tier" value="3"  onClick={() => handleOptionChange(radioOption = 3)}/>84.99
+        <input type="radio" name="tier" value="1" onClick={() => handleOptionChange(radioOption = 1)}/>$24.99
+        <input type="radio" name="tier" value="2"  onClick={() => handleOptionChange(radioOption = 2)}/>$54.99
+        <input type="radio" name="tier" value="3"  onClick={() => handleOptionChange(radioOption = 3)}/>$84.99
         </label>
 
         <input type="submit" name="submit" value="Submit" onClick={handleSubmit}/>

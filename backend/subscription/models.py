@@ -1,5 +1,6 @@
 from django.db import models
 from authentication.models import User
+from tiers.models import Tiers
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Subscription(models.Model):
     skin_care_product = models.CharField(max_length=30)
     cosmetic_product = models.CharField(max_length=30)
     fragrance_product = models.CharField(max_length=30)
+    #tier = models.ForeignKey(Tiers)
     tier = models.IntegerField()
 
 #Could make separate tables for all products + tiers

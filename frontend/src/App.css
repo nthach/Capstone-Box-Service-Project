@@ -35,7 +35,7 @@ button:hover {
 
 .container {
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 75%;
   overflow: hidden;
   text-align: center;
 }
@@ -55,4 +55,21 @@ button:hover {
   margin: 5px;
   padding: 3px 7px;
   font-size: 17px;
+}
+
+
+.Table_Container{
+  display:flex;
+  flex-direction:column;
+  width: 100%;
+}
+
+.Table_Row{
+  display:flex;
+  flex-direction:row;
+  width:100%;
+}
+
+.Table_Column{
+  width:25%;
 }

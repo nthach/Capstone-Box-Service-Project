@@ -1,9 +1,15 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useHref, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+
+
+
+
+
+
 
 const HomePage = () => {
   // The "user" value from this Hook contains the decoded logged in user information (username, first name, id)
@@ -30,11 +36,23 @@ const HomePage = () => {
         Authorization: "Bearer " + token,
       },
         });
+        let isSuperUser=false;
         
   for(let i = 0; i < response_user.data.length; i++) {
-    if(response_user.data[i].is_superuser==true && response_user.data[i].user_id==user.user_id){
-      navigate("/adminreport/");
+    console.log(response_user.data[i]);
+    console.log("Super User:" + response_user.data[i].is_superuser)
+    console.log("User ID: " + response_user.data[i].username)
+    console.log("Auth USer:" + user.id)
+    if(response_user.data[i].is_superuser===true && response_user.data[i].username===user.username){
+      console.log("You are the super user...");
+      isSuperUser=true;
+      break;
     }
+
+  }
+  if(isSuperUser===true){
+    navigate("/adminreport/");
+
   }
   //------------------------------------------------------------------------------------------------
         
@@ -61,3 +79,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+

@@ -92,7 +92,7 @@ const AdminReportPage = () => {
   setChartData(data)
 
   let options = {
-    title: "Anlytic Chart",
+    title: "Analytic Chart",
   };
 
   setChartTitle(options)
